@@ -9,7 +9,7 @@ import { ReactComponent as Logo } from "../../assets/crown.svg";
 
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 
-const Header = ({ currentUser }) => {
+const Header = ({ currentUser, hidden }) => {
   return (
     <div className="header">
       <Link to={"/"} className="logo-container">
@@ -38,14 +38,15 @@ const Header = ({ currentUser }) => {
         )}
         <CartIcon />
       </div>
-      <CartDropdown />
+      {hidden ? null : <CartDropdown />}
     </div>
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => {
   return {
-    currentUser: state.user.currentUser,
+    currentUser: currentUser,
+    hidden: hidden,
   };
 };
 
